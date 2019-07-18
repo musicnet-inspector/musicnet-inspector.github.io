@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>Disqus Comments</title>
+<style type="text/css">
+body {
+    margin: 20px;
+}
+</style>
+</head>
+<body>
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+    this.page.identifier = window.location.search ? window.location.search.split('?id=')[1] : '';
+    this.page.url = 'https://musicnet-inspector.github.io/';    
+    if (this.page.identifier) {
+        this.page.url += '?id=' + this.page.identifier;
+    }
+    this.callbacks.onReady.push(function() {
+        console.log('disqus ready');
+        parent.resize_disqus();
+    });
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://musicnet-inspector.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</body>
+</html>

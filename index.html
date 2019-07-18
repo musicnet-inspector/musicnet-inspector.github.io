@@ -15,10 +15,10 @@ body {
 }
 
 #content {
+    background: #f2f6f5;
     width: 100%;
     min-width: 1280px;
     max-width: 1280px;
-    height: 720px;
     min-height: 100vh;
     margin: auto;
 }
@@ -85,6 +85,10 @@ th, td {
     opacity: 0.8;
 }
 
+#disqus {
+    width: 100%;
+}
+
 </style>
 </head>
 <body>
@@ -116,11 +120,18 @@ th, td {
         All music and labels are either in the public domain or released under Creative Commons licenses. This website is created by <a href="https://jongwook.kim">Jong Wook Kim</a> and is not affiliated with the creators of the MusicNet dataset.
     </p>
 </div>
-</div></div>
+</div>
+<iframe id="disqus" src="disqus.html" frameborder="0" allowtransparency="true" name="disqus"></iframe>
+</div>
 </div>
 <script src="jquery-3.4.1.min.js"></script>
 <script src="papaparse.min.js"></script>
 <script type="text/javascript">
+function resize_disqus() {
+    let disqus = $('#disqus')[0];
+    disqus.height = window.frames['disqus'].document.body.scrollHeight + 50;
+}
+
 $(function() {
     let side = $('#side');
     let thead = $('#thead');
@@ -131,6 +142,12 @@ $(function() {
         let video = $(`<video src="videos/${id}.mp4" controls></video>`);
         side.append(video);
         video[0].play();
+        $('#disqus')[0].src = `disqus.html?id=${id}`;
+    }
+
+    let id = window.location.search ? window.location.search.split('?id=')[1] : '';
+    if (id) {
+        play(id);
     }
 
     $.ajax('musicnet_metadata.csv').done(function(data, status, xhr) {
